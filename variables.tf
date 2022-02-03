@@ -42,10 +42,16 @@ variable "managing_tenant_id" {
   type        = string
 }
 
-variable "scope" {
-  description = "The ID of the managed subscription. Changing this forces a new resource to be created"
+variable "definition_scope" {
+  description = "The ID of the managed subscription. Changing this forces a new resource to be created."
   type        = string
 }
+
+variable "assignment_scope" {
+  description = " The scope at which the Lighthouse Assignment applies too, such as /subscriptions/0b1f6471-1bf0-4dda-aec3-111122223333 or /subscriptions/0b1f6471-1bf0-4dda-aec3-111122223333/resourceGroups/myGroup. Changing this forces a new resource to be created."
+  type        = string
+}
+
 
 variable "tags" {
   description = "Tags to apply to all resources created."
