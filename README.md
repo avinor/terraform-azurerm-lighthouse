@@ -1,20 +1,36 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Azure Lighthouse
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+Terraform module to manage an [Azure
+Lighthouse](https://docs.microsoft.com/en-us/azure/active-directory-b2c/azure-monitor)
+definition and assignment.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+# Usage
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+The example below grants access to log analytics for a Azure B2C tenant,
+like described in [this
+tutorial](https://docs.microsoft.com/en-us/azure/active-directory-b2c/azure-monitor).
+This example uses [tau](https://github.com/avinor/tau).
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+```
+module {
+  source = "github.com/avinor/terraform-azurerm-lighthouse"
+}
+
+inputs {
+
+  name = "log-analytics-for-b2c"
+
+  description = "Allow The B2C tenant to use Log Analytics"
+  managing_tenant_id = "00000000-0000-0000-0000-000000000000"
+
+  definition_scope = "/subscriptions/00000000-0000-0000-0000-000000000001"
+  location = "westeurope"
+
+  principal_id =  "00000000-0000-0000-0000-000000000002"
+  role_definition_id = "b24988ac-6180-42a0-ab88-20f7382dd24c"
+  principal_display_name = "Azure AD B2C tenant administrators"
+
+  assignment_scope = "/subscriptions/00000000-0000-0000-0000-000000000001/resourceGroups/log-analytics-rg"
+}
+
+```
